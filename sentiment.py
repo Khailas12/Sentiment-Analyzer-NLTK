@@ -23,3 +23,5 @@ def sentiment_analyzer():
     print(f"The result is : {label}")
     
 sentiment_analyzer()
+
+# VADER is a model used for text sentiment analysis that is sensitive to both polarity (positive/negative) and intensity (strength) of emotion. ... The sentiment score of a text can be obtained by summing up the intensity of each word in the text
