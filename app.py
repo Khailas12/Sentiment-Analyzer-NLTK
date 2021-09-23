@@ -1,12 +1,21 @@
+from flask import Flask, request
+from flask.templating import render_template
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from flask import request
 import nltk
 
 
-text = 'today is a wonderful day'
+app = Flask(__name__)
 
-def sentiment_analyzer():
-    # downloading the trained data VADER( Valence Aware Dictionary for Sentiment Reasoning)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+
+@app.route('/', methods=['POST'])
+def my_sentiment():
+    text = request.form['text']
+    
     nltk.download('vader_lexicon') 
     sentiment_analyzer = SentimentIntensityAnalyzer()
     score = ((sentiment_analyzer.polarity_scores(str(text))))['compound']
@@ -19,7 +28,8 @@ def sentiment_analyzer():
         
     else:
         label = 'Negative'
+    return(render_template('index.html', variable=label))
 
-    print(f"The result is : {label}")
     
-sentiment_analyzer()
+if __name__ == "__main__":
+    app.run(debug=True)
